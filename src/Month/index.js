@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
+import get from 'lodash/get'
 import Day from '../Day';
 const style = require('./Month.scss');
 
@@ -8,7 +10,7 @@ export default class Month extends Component {
 		return (!nextProps.isScrolling && !this.props.isScrolling);
 	}
 	renderRows() {
-		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme} = this.props;
+		let {disabledDates, disabledDays, displayDate, locale, maxDate, minDate, onDaySelect, rowHeight, rows, selectedDate, today, theme, overlay} = this.props;
 		let currentYear = today.date.year();
 		let monthShort = displayDate.format('MMM');
 		let monthRows = [];
@@ -35,6 +37,8 @@ export default class Month extends Component {
 					disabledDays && disabledDays.length && disabledDays.indexOf(date.date.day()) !== -1 ||
 					disabledDates && disabledDates.length && disabledDates.indexOf(date.yyyymmdd) !== -1
 				);
+				const overlayData = get(overlay, 'data', [])
+				const findOverlay = overlayData.find((o) => moment(o.date).format('YYYYMMDD') === date.yyyymmdd)
 
 				days[k] = (
 					<Day
@@ -49,6 +53,8 @@ export default class Month extends Component {
 						locale={locale}
 						monthShort={monthShort}
 						theme={theme}
+						overlay={findOverlay}
+						CustomOverlay={get(overlay, 'component')}
 					/>
 				);
 			}

@@ -76,7 +76,6 @@
   .Cal__Header__root.Cal__Header__landscape {
     -webkit-box-align: start;
         -ms-flex-align: start;
-                -ms-grid-row-align: flex-start;
             align-items: flex-start;
     min-width: 200px;
     border-top-right-radius: 0;
@@ -146,6 +145,11 @@
   opacity: 0;
   -webkit-transform: translate3d(0, 100%, 0);
           transform: translate3d(0, 100%, 0); }
+.Cal__Overlay__root {
+  height: 56px;
+  width: 56px;
+  margin-top: -56px;
+  position: absolute; }
 .Cal__Day__root {
   display: inline-block;
   box-sizing: border-box;
@@ -153,6 +157,7 @@
   list-style: none;
   font-size: 16px;
   text-align: center;
+  line-height: 56px;
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -262,7 +267,8 @@
       z-index: 1;
       margin-top: -1px;
       background-color: #FFF;
-      box-shadow: 0 -1px 0 #E9E9E9; }
+      box-shadow: 0 -1px 0 #E9E9E9;
+      height: 56px; }
   .Cal__Month__row:nth-child(2) {
     box-shadow: 0 -1px 0 #E9E9E9; }
   .Cal__Month__row.Cal__Month__partial:first-child li:first-child {
