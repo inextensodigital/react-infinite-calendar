@@ -23,6 +23,7 @@
             background-color: #FFF;
 
             box-shadow: 0 -1px 0 $borderColor;
+            height: $rowHeight;
         }
     }
     &:nth-child(2) {
