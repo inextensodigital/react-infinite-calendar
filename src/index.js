@@ -167,7 +167,7 @@ export default class InfiniteCalendar extends Component {
 	getTheme(customTheme = this.props.theme) {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
-	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+	onDaySelect = (selectedDate, e) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
@@ -177,7 +177,6 @@ export default class InfiniteCalendar extends Component {
 
 			this.setState({
 				selectedDate,
-				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone()
 			}, () => {
 				this.clearHighlight();
