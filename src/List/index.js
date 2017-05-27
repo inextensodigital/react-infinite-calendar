@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {List as VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
-import moment from 'moment';
 import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
 import Month from '../Month';
 const style = require('./List.scss');
@@ -25,7 +24,8 @@ export default class List extends Component {
 		maxDate: validParsedDate,
 		showOverlay: PropTypes.bool,
 		theme: PropTypes.object,
-		locale: PropTypes.object
+		locale: PropTypes.object,
+		overlay: PropTypes.shape({})
 	};
 	componentDidMount() {
 		let vs = this.refs.VirtualScroll;
@@ -81,7 +81,7 @@ export default class List extends Component {
 		}
 	};
 	renderMonth = ({index, isScrolling, style: rowStyle}) => {
-		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today} = this.props;
+		let {disabledDates, disabledDays, locale, months, maxDate, minDate, onDaySelect, rowHeight, selectedDate, showOverlay, theme, today, overlay} = this.props;
 		let {date, rows} = this.memoize(months[index]);
 
 		return (
@@ -102,6 +102,7 @@ export default class List extends Component {
 				theme={theme}
 				locale={locale}
 				rowStyle={rowStyle}
+				overlay={overlay}
 			/>
 		);
 	};

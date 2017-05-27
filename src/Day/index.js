@@ -1,10 +1,11 @@
 import React from 'react';
 const style = require('./Day.scss');
 
-export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme}) {
+import Overlay from '../Overlay';
+
+export default function Day({currentYear, date, day, handleDayClick, isDisabled, isToday, isSelected, monthShort, locale, theme, overlay, CustomOverlay}) {
 	var {date: mmt, yyyymmdd} = date;
 	var year = mmt.year();
-
 	return (
 		<li
 			style={(isToday) ? {color: theme.todayColor} : null}
@@ -21,6 +22,7 @@ export default function Day({currentYear, date, day, handleDayClick, isDisabled,
 					<span className={style.day}>{day}</span>
 				</div>
 			}
+			{overlay && <Overlay data={overlay} CustomOverlay={CustomOverlay}/>}
 		</li>
 	);
 }

@@ -87,7 +87,8 @@ export default class InfiniteCalendar extends Component {
 		shouldHeaderAnimate: PropTypes.bool,
 		showOverlay: PropTypes.bool,
 		showTodayHelper: PropTypes.bool,
-		showHeader: PropTypes.bool
+		showHeader: PropTypes.bool,
+		overlay: PropTypes.shape({})
 	};
 	componentDidMount() {
 		let {autoFocus, keyboardSupport} = this.props;
@@ -166,7 +167,7 @@ export default class InfiniteCalendar extends Component {
 	getTheme(customTheme = this.props.theme) {
 		return Object.assign({}, defaultTheme, customTheme);
 	}
-	onDaySelect = (selectedDate, e, shouldHeaderAnimate = this.props.shouldHeaderAnimate) => {
+	onDaySelect = (selectedDate, e) => {
 		let {afterSelect, beforeSelect, onSelect} = this.props;
 
 		if (!beforeSelect || typeof beforeSelect == 'function' && beforeSelect(selectedDate)) {
@@ -176,7 +177,6 @@ export default class InfiniteCalendar extends Component {
 
 			this.setState({
 				selectedDate,
-				shouldHeaderAnimate,
 				highlightedDate: selectedDate.clone()
 			}, () => {
 				this.clearHighlight();
@@ -370,6 +370,7 @@ export default class InfiniteCalendar extends Component {
 			showHeader,
 			tabIndex,
 			width,
+			overlay,
 			...other
 		} = this.props;
 		let disabledDates = this.getDisabledDates(this.props.disabledDates);
@@ -377,7 +378,6 @@ export default class InfiniteCalendar extends Component {
 		let theme = this.getTheme();
 		let {display, isScrolling, selectedDate, showToday, shouldHeaderAnimate} = this.state;
 		let today = this.today = parseDate(moment());
-
 		// Selected date should not be disabled
 		if (selectedDate && (disabledDates && disabledDates.indexOf(selectedDate.format('YYYYMMDD')) !== -1 || disabledDays && disabledDays.indexOf(selectedDate.day()) !== -1)) {
 			selectedDate = null;
@@ -401,6 +401,7 @@ export default class InfiniteCalendar extends Component {
 							height={height}
 							selectedDate={parseDate(selectedDate)}
 							disabledDates={disabledDates}
+							overlay={overlay}
 							disabledDays={disabledDays}
 							months={this.months}
 							onDaySelect={this.onDaySelect}
